@@ -1,25 +1,10 @@
-import {
-  Accordion,
-  AccordionItem,
-  AccordionTrigger,
-  AccordionContent,
-} from "@radix-ui/react-accordion";
+
 import { CheckIcon, MapIcon, MapPin, ShoppingCartIcon } from "lucide-react";
 import React from "react";
 import { dictionary } from "../../../../content";
 
-interface Props {
-  data: {
-    _id: string;
-    name: string;
-    address: string;
-    project_cost: string;
-    district: string;
-    functioning_status: string[];
-    paddy_procurement: string;
-  }[];
-}
-export default function RenderNearest({ data }: Props) {
+
+export default function RenderNearest({ data }) {
   return (
     <div className="flex gap-4 flex-col py-4 ">
       <span className="flex justify-between">
