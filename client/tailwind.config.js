@@ -20,6 +20,7 @@ module.exports = {
       "theme-green": "#588454",
       white: "white",
       "border-light": "#00000029",
+      "black-light": "#00000090",
     },
     container: {
       center: true,
