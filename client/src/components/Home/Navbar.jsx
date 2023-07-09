@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useContext } from "react";
 import Image from "next/image";
 import {
   DropdownMenu,
@@ -12,8 +12,10 @@ import {
 } from "@radix-ui/react-dropdown-menu";
 import { LogOut, Menu, User } from "lucide-react";
 import { dictionary } from "../../../content";
+import { AppContext } from "@/context/ContextProvider";
 
 export default function Navbar({ params }) {
+  const { setUser, setToken, setDistrict } = useContext(AppContext);
   return (
     <nav className="flex justify-between bg-white p-4 fixed top-0 left-0 right-0">
       <Image
@@ -41,7 +43,14 @@ export default function Navbar({ params }) {
               <User className="mr-2 h-4 w-4" />
               <span>{dictionary[params]?.profile}</span>
             </DropdownMenuItem>
-            <DropdownMenuItem className="flex items-center justify-end p-2 px-4 gap-2 border rounded-md border-opacity-10 border-theme-blue">
+            <DropdownMenuItem
+              onClick={() => {
+                setDistrict(null);
+                setUser(null);
+                setToken(null);
+              }}
+              className="flex items-center justify-end p-2 px-4 gap-2 border rounded-md border-opacity-10 border-theme-blue"
+            >
               <LogOut className="mr-2 h-4 w-4" />
               <span>{dictionary[params]?.logout}</span>
             </DropdownMenuItem>

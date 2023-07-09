@@ -6,9 +6,18 @@ import Feed from "@/components/Home/Feed";
 import Forum from "@/components/Home/Forum";
 import Navbar from "@/components/Home/Navbar";
 
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { AppContext } from "@/context/ContextProvider";
+import { redirect } from "next/navigation";
 
 export default function page({ params }) {
+  const { user } = useContext(AppContext);
+  useEffect(() => {
+    if (!user) {
+      redirect(`/${params.lang}/auth`);
+    }
+  }, [user]);
+
   const [activeIndex, setActiveIndex] = useState(0);
   const components = [
     <Dashboard details={params.lang} />,
