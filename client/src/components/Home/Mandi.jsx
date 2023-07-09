@@ -17,6 +17,7 @@ import { AppContext } from "@/context/ContextProvider";
 export default function Mandi({ params }) {
   const { district } = useContext(AppContext);
   const [districts, setDistricts] = useState([]);
+  const [valueDistricts, setValueDistricts] = useState([]);
   const [selectedDistrict, setSelectedDistrict] = useState(district);
   const [selectedMandi, setSelectedMandi] = useState([]);
   const [selectedMandiFinal, setSelectedMandiFinal] = useState({
@@ -29,14 +30,23 @@ export default function Mandi({ params }) {
   }, []);
 
   const fetchData = async (district) => {
-    const data = await getNearestMandi(district);
+    const data = await getNearestMandi(district, params);
     setSelectedMandi(data.data.bazars);
   };
 
   const getDistricts = async () => {
     try {
-      const response = await api.get("/allDistricts");
-      setDistricts(response.data);
+      if (params === "bn") {
+        const response = await api.get("/en/bn/allDistricts");
+        const valueRespomse = await api.get("/en/en/allDistricts");
+        setValueDistricts(valueRespomse.data.district);
+        setDistricts(response.data.district);
+      } else {
+        const response = await api.get("/bn/en/allDistricts");
+        const valueRespomse = await api.get("/en/en/allDistricts");
+        setValueDistricts(valueRespomse.data.district);
+        setDistricts(response.data.district);
+      }
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -69,7 +79,7 @@ export default function Mandi({ params }) {
                   className="bg-light-background m-1 my-2 rounded-md p-3"
                   onClick={() => {
                     setSelectedDistrict(ele);
-                    fetchData(ele);
+                    fetchData(valueDistricts[idx]);
                   }}
                   key={idx}
                 >
@@ -93,7 +103,7 @@ export default function Mandi({ params }) {
             <DropdownMenuGroup>
               {selectedMandi.map((ele, idx) => (
                 <DropdownMenuItem
-                  className="bg-light-background mx-1 my-2 rounded-md"
+                  className="bg-light-background font-sans mx-1 my-2 rounded-md"
                   onClick={() => {
                     setSelectedMandiFinal(ele);
                   }}
