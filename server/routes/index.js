@@ -16,6 +16,7 @@ router.get('/api/v1', (req, res) => {
 router.route('/api/v1/signup').post(AuthController.signup)
 router.route('/api/v1/login').post(localVariables, AuthController.login)
 router.route('/api/v1/verifyOTP').get(verifyToken, AuthController.verifyOTP)
+router.route('/api/v1/getProfile').get(verifyToken, AuthController.getProfile)
 
 
 // Bazar routes
@@ -26,13 +27,14 @@ router.route('/api/v1/addBazar').post(verifyToken, BazarController.addBazar)
 
 
 // Post routes
-router.route('/api/v1/createThread/:status').post(verifyToken, PostController.createThread)
-router.route('/api/v1/threads/:status').get(verifyToken, PostController.getAllThreads)
+router.route('/api/v1/:status/createThread').post(verifyToken, PostController.createThread)
+router.route('/api/v1/:status/threads').get(verifyToken, PostController.getAllThreads)
 router.route('/api/v1/threads/:threadId').get(verifyToken, PostController.getSpecificThread)
 router.route('/api/v1/comment').post(verifyToken, PostController.createComment)
 
 
 // Group routes
+
 
 
 module.exports = router
