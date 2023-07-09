@@ -33,7 +33,7 @@ router.route('/api/v1/threads/:threadId').get(verifyToken, PostController.getSpe
 router.route('/api/v1/comment').post(verifyToken, PostController.createComment)
 
 
-// Group routes
+// Chat routes
 
 
 
