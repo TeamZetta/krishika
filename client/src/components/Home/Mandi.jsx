@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import api from "../../../packages/api-management/common";
 import { dictionary } from "../../../content";
-import { Button } from "../ui/button";
+import { getNearestMandi } from "../../../packages/api-management/getNearestMandi";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -19,14 +19,18 @@ export default function Mandi({ params }) {
   const [districts, setDistricts] = useState([]);
   const [selectedDistrict, setSelectedDistrict] = useState(district);
   const [selectedMandi, setSelectedMandi] = useState([]);
+  const [selectedMandiFinal, setSelectedMandiFinal] = useState({
+    name: "Select one",
+  });
 
   useEffect(() => {
     getDistricts();
+    fetchData(district);
   }, []);
 
-  const fetchData = async () => {
-    const data = await getNearestMandi(selectedDistrict || "");
-    setSelectedMandi(data)
+  const fetchData = async (district) => {
+    const data = await getNearestMandi(district);
+    setSelectedMandi(data.data.bazars);
   };
 
   const getDistricts = async () => {
@@ -39,7 +43,7 @@ export default function Mandi({ params }) {
   };
 
   return (
-    <div className="flex justify-center   p-2 pt-[10vh]">
+    <div className="flex justify-center p-2 pt-[10vh]">
       <div className="flex flex-col p-4 gap-6">
         <div>
           <h3 className="text-3xl font-bold">{dictionary[params]?.mandi}</h3>
@@ -48,68 +52,70 @@ export default function Mandi({ params }) {
           </span>
         </div>
         <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button className="bg-white p-4 border-border-light border w-[92vw] flex justify-between">
+          <DropdownMenuTrigger>
+            <button className="bg-white p-3 rounded-md border-border-light border w-[92vw] flex justify-between">
               {selectedDistrict}
               <ChevronDown />
-            </Button>
+            </button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-[92vw] max-h-[30vh] overflow-scroll">
             <DropdownMenuLabel>
-              {" "}
               {dictionary[params]?.searchDistrict}
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              {districts.map((ele, idx) => {
-                return (
-                  <DropdownMenuItem
-                    className="bg-light-background m-1 rounded-md p-2"
-                    onClick={() => {
-                      setSelectedDistrict(ele);
-                    }}
-                    key={idx}
-                  >
-                    {ele}
-                  </DropdownMenuItem>
-                );
-              })}
+              {districts.map((ele, idx) => (
+                <DropdownMenuItem
+                  className="bg-light-background m-1 rounded-md p-2"
+                  onClick={() => {
+                    setSelectedDistrict(ele);
+                    fetchData(ele);
+                  }}
+                  key={idx}
+                >
+                  {ele}
+                </DropdownMenuItem>
+              ))}
             </DropdownMenuGroup>
-            <DropdownMenuSeparator />
           </DropdownMenuContent>
         </DropdownMenu>
 
         <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button className="bg-white p-4 border-border-light border w-[92vw] flex justify-between">
-              {selectedMandi}
+          <DropdownMenuTrigger>
+            <button className="bg-white p-3 items-center rounded-md border-border-light border w-[92vw] flex justify-between">
+              {selectedMandiFinal.name}
               <ChevronDown />
-            </Button>
+            </button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-[92vw] max-h-[30vh] overflow-scroll">
-            <DropdownMenuLabel>
-              {" "}
-              {dictionary[params]?.searchDistrict}
-            </DropdownMenuLabel>
+          <DropdownMenuContent className="w-[92vw] max-h-[50vh] overflow-scroll">
+            <DropdownMenuLabel>{dictionary[params]?.mandi}</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              {districts.map((ele, idx) => {
-                return (
-                  <DropdownMenuItem
-                    className="bg-light-background m-1 rounded-md p-2"
-                    onClick={() => {
-                      setSelectedDistrict(ele);
-                    }}
-                    key={idx}
-                  >
-                    {ele}
-                  </DropdownMenuItem>
-                );
-              })}
+              {selectedMandi.map((ele, idx) => (
+                <DropdownMenuItem
+                  className="bg-light-background mx-1 my-2 rounded-md"
+                  onClick={() => {
+                    setSelectedMandiFinal(ele);
+                  }}
+                  key={ele._id}
+                >
+                  <div className="flex flex-col gap-2">
+                    <div className="flex flex-col">
+                      <span className="font-bold text-lg">{ele.name}</span>
+                      <span className="font-semibold">{ele.address}</span>
+                    </div>
+
+                    <div className=" py-2 px-1 rounded-md ">
+                      <span> {ele.functioning_status[0]}</span>
+                      <span> {ele.functioning_status[1]}</span>
+                    </div>
+                  </div>
+                </DropdownMenuItem>
+              ))}
             </DropdownMenuGroup>
-            <DropdownMenuSeparator />
           </DropdownMenuContent>
         </DropdownMenu>
+        {/* {JSON.stringify(selectedMandiFinal)} */}
       </div>
     </div>
   );
