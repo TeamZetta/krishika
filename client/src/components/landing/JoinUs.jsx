@@ -21,13 +21,6 @@ export default function JoinUs({ params }) {
           {dictionary[params]?.joinUs}
         </Link>
       </div>
-      <Image
-        src="/Assets/peasent.svg"
-        height={40}
-        width={5000}
-        alt="Farmer resting"
-        className="w-full h-auto mt-20"
-      />
     </>
   );
 }

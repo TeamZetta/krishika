@@ -30,11 +30,11 @@ const Dashboard = memo(({ details }) => {
   return (
     <div className="pt-[7vh]">
       <Image
-        src="/Assets/dash1.jpg"
+        src="/Assets/dash.jpg"
         height={300}
         width={500}
         alt="Dashboard"
-        className="w-screen h-[30vh] object-cover"
+        className="w-auto h-[50vh] object-cover"
       />
       <div className="p-4 ">
         <h1 className="text-3xl font-bold py-6">
@@ -45,8 +45,6 @@ const Dashboard = memo(({ details }) => {
         <span className="text-2xl text-theme-blue font-bold">
           {user?.fullName}
         </span>
-
-        <RenderNearest data={data.bazars} />
       </div>
     </div>
   );

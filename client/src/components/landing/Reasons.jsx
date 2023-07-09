@@ -1,5 +1,6 @@
 import React from "react";
 import { dictionary } from "../../../content";
+import Image from "next/image";
 
 export default function Reasons({ params }) {
   return (
@@ -28,6 +29,13 @@ export default function Reasons({ params }) {
           </span>
         </div>
       </div>
+      <Image
+        src="/Assets/peasent.svg"
+        height={40}
+        width={5000}
+        alt="Farmer resting"
+        className="w-full h-auto mt-20"
+      />
     </div>
   );
 }

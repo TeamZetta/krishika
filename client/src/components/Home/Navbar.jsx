@@ -30,7 +30,7 @@ export default function Navbar({ params }) {
             <Menu />
           </button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="w-screen transition-transform rounded-sm bg-light-background shadow-sm p-4">
+        <DropdownMenuContent className="w-screen transition-transform rounded-sm bg-white shadow-sm p-4">
           <DropdownMenuLabel className="border-b border-opacity-5 px-2 text-end">
             {dictionary[params]?.actions}
           </DropdownMenuLabel>
