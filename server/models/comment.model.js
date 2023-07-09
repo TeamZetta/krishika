@@ -4,7 +4,7 @@ const commentSchema = new mongoose.Schema(
   {
     content: { type: String, required: true },
     user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-    threadId: { type: mongoose.Schema.Types.ObjectId, ref: 'Forum' }
+    threadId: { type: mongoose.Schema.Types.ObjectId, ref: 'Post' }
   },
   {
     timestamps: true,

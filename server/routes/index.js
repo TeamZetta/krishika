@@ -5,7 +5,7 @@ const { verifyToken, localVariables } = require('../middlewares/auth')
 
 const AuthController = require('../controllers/auth.controller')
 const BazarController = require('../controllers/bazar.controller')
-const ForumController = require('../controllers/forum.controller')
+const PostController = require('../controllers/post.controller')
 
 // Test route
 router.get('/api/v1', (req, res) => {
@@ -25,11 +25,14 @@ router.route('/api/v1/bazars/:district').get(BazarController.searchByDistrict)
 router.route('/api/v1/addBazar').post(verifyToken, BazarController.addBazar)
 
 
-// Forum routes
-router.route('/api/v1/createThread').post(verifyToken, ForumController.createThread)
-router.route('/api/v1/threads').get(verifyToken, ForumController.getAllThreads)
-router.route('/api/v1/threads/:threadId').get(verifyToken, ForumController.getSpecificThread)
-router.route('/api/v1/comment').post(verifyToken, ForumController.createComment)
+// Post routes
+router.route('/api/v1/createThread/:status').post(verifyToken, PostController.createThread)
+router.route('/api/v1/threads/:status').get(verifyToken, PostController.getAllThreads)
+router.route('/api/v1/threads/:threadId').get(verifyToken, PostController.getSpecificThread)
+router.route('/api/v1/comment').post(verifyToken, PostController.createComment)
+
+
+// Group routes
 
 
 module.exports = router
