@@ -24,7 +24,7 @@ let sendSMS = async (to, OTP) => {
 
 if (FAKE_SMS){
   sendSMS = async (to, OTP) => {
-    console.log("Message sent successfully")
+    console.log("Fake SMS sent successfully")
   }
 }
 
