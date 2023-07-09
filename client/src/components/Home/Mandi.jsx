@@ -1,7 +1,9 @@
 import React, { useEffect, useState, useContext } from "react";
 import api from "../../../packages/api-management/common";
+import { Noto_Sans_Bengali } from "next/font/google";
 import { dictionary } from "../../../content";
 import { getNearestMandi } from "../../../packages/api-management/getNearestMandi";
+const ntb = Noto_Sans_Bengali({ subsets: ["latin"] });
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -76,7 +78,7 @@ export default function Mandi({ params }) {
             <DropdownMenuGroup>
               {districts.map((ele, idx) => (
                 <DropdownMenuItem
-                  className="bg-light-background m-1 my-2 rounded-md p-3"
+                  className={` ${ntb.className} bg-light-background m-1 my-2 rounded-md p-3`}
                   onClick={() => {
                     setSelectedDistrict(ele);
                     fetchData(valueDistricts[idx]);
@@ -103,21 +105,25 @@ export default function Mandi({ params }) {
             <DropdownMenuGroup>
               {selectedMandi.map((ele, idx) => (
                 <DropdownMenuItem
-                  className="bg-light-background font-sans mx-1 my-2 rounded-md"
+                  className={
+                    "bg-light-background font-sans mx-1 my-2 rounded-md"
+                  }
                   onClick={() => {
                     setSelectedMandiFinal(ele);
                   }}
                   key={ele._id}
                 >
-                  <div className="flex flex-col gap-2">
-                    <div className="flex flex-col">
-                      <span className="font-bold text-lg">{ele.name}</span>
-                      <span className="font-semibold">{ele.address}</span>
-                    </div>
+                  <div className={`${ntb.className}`}>
+                    <div className="flex flex-col gap-2">
+                      <div className="flex flex-col">
+                        <span className="font-bold text-lg">{ele.name}</span>
+                        <span className="font-semibold">{ele.address}</span>
+                      </div>
 
-                    <div className=" py-2 px-1 rounded-md ">
-                      <span> {ele.functioning_status[0]}</span>
-                      <span> {ele.functioning_status[1]}</span>
+                      <div className=" py-2 px-1 rounded-md ">
+                        <span> {ele.functioning_status[0]}</span>
+                        <span> {ele.functioning_status[1]}</span>
+                      </div>
                     </div>
                   </div>
                 </DropdownMenuItem>
@@ -125,7 +131,6 @@ export default function Mandi({ params }) {
             </DropdownMenuGroup>
           </DropdownMenuContent>
         </DropdownMenu>
-        {/* {JSON.stringify(selectedMandiFinal)} */}
       </div>
     </div>
   );
