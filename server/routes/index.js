@@ -21,8 +21,8 @@ router.route('/api/v1/getProfile').get(verifyToken, AuthController.getProfile)
 
 // Bazar routes
 router.route('/api/v1/allBazars').get(BazarController.getAllBazars)
-router.route('/api/v1/allDistricts').get(BazarController.getAllDistricts)
-router.route('/api/v1/bazars/:district').get(BazarController.searchByDistrict)
+router.route('/api/v1/:from/:to/allDistricts').get(BazarController.getAllDistricts)
+router.route('/api/v1/bazars/:from/:to/:district').get(BazarController.searchByDistrict)
 router.route('/api/v1/addBazar').post(verifyToken, BazarController.addBazar)
 
 

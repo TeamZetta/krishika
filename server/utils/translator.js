@@ -2,15 +2,15 @@ const gtranslate = require('@iamtraction/google-translate');
 
 const translate = async (data, fromLang, toLang)=>{
     const res = await gtranslate(data, { from: fromLang, to: toLang })
-    // console.log(res);
-    return res
+    // console.log('resla', res);
+    return res.text
 }
 
-async function asd(){
-l = await translate("Sitalkuchi Krishak Bazar", 'en', 'bn')
-console.log(l)
-}
+// async function asd(){
+// l = await translate("Sitalkuchi Krishak Bazar", 'en', 'bn')
+// console.log(l)
+// }
 
-asd()
+// asd()
 
-// module.exports = { translate };
+module.exports = translate;
