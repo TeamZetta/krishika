@@ -15,6 +15,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { ChevronDown } from "lucide-react";
 import { AppContext } from "@/context/ContextProvider";
+import Map from "@/components/Map/MapContainer";
+
 
 export default function Mandi({ params }) {
   const { district } = useContext(AppContext);
@@ -131,6 +133,9 @@ export default function Mandi({ params }) {
             </DropdownMenuGroup>
           </DropdownMenuContent>
         </DropdownMenu>
+      </div>
+      <div>
+        <Map address='Kolkata'/>
       </div>
     </div>
   );
