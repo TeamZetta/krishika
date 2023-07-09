@@ -1,6 +1,8 @@
 const express = require('express')
 const router = express.Router()
-const AuthController = require("../controller/auth.controller")
+
+
+const AuthController = require("../controllers/auth.controller")
 
 // Test route
 router.get('/api/v1', (req, res) => {
@@ -10,5 +12,6 @@ router.get('/api/v1', (req, res) => {
 // Auth routes
 router.post("/api/v1/signup", AuthController.signup)
 router.post("/api/v1/login", AuthController.login)
+
 
 module.exports = router

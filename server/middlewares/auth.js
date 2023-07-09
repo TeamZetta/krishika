@@ -19,4 +19,12 @@ const verifyToken = async (req, res, next) => {
 }
 
 
-module.exports = { verifyToken }
+const localVariables = (req, res, next) => {
+    req.app.locals = {
+        OTP: null
+    }
+    next()
+}
+
+
+module.exports = { verifyToken, localVariables }
