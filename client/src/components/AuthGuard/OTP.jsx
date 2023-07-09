@@ -1,14 +1,16 @@
-import React, { useRef } from "react";
+import React, { useContext, useRef } from "react";
 import { dictionary } from "../../../content";
 import { Button } from "../ui/button";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import userLoggedIn from "@/lib/functions/userLoggedIn";
+import { verifyOTP } from "../../../packages/api-management/verifyOTP";
+import { AppContext } from "@/context/ContextProvider";
 
 export default function OTP({ onChange, params, ServerOTP }) {
-  console.log(ServerOTP);
+  const { token, setUser, setDistrict } = useContext(AppContext);
   const router = useRouter();
-  const clientOTPController = useRef < HTMLInputElement > null;
+  const clientOTPController = useRef(null);
   return (
     <div className="px-4 py-8 flex flex-col gap-8">
       <div>
@@ -28,23 +30,13 @@ export default function OTP({ onChange, params, ServerOTP }) {
         <Button
           className="bg-theme-blue text-white"
           onClick={async () => {
-            if (clientOTPController.current?.value !== undefined) {
-              if (ServerOTP === clientOTPController.current.value) {
-                await userLoggedIn();
-                router.push(`/${params}/home`);
-              } else {
-                toast.error(`${dictionary[params]?.wrongOTP}`, {
-                  position: "top-center",
-                  autoClose: 5000,
-                  hideProgressBar: false,
-                  closeOnClick: true,
-                  pauseOnHover: true,
-                  draggable: true,
-                  progress: undefined,
-                  theme: "light",
-                });
-              }
-            }
+            const res = await verifyOTP(
+              token,
+              clientOTPController.current.value
+            );
+
+            setUser(res.data);
+            setDistrict(res.data.district);
           }}
         >
           {dictionary[params]?.logIn}

@@ -29,11 +29,8 @@ export default function Login({ params, onChange, onOtp }) {
 
       const response = await login(phoneNumberController.current?.value);
       if (response.status === 200) {
-        setUser(response.data.user);
-        setDistrict(response.data.user.district);
-        setToken(response.data.accessToken);
-        // onOtp(response.data.otp);
-        // onChange("OTP");
+        setToken(response.data);
+        onChange("OTP");
       } else {
         toast.error(`${dictionary[params]?.otpSent}`, {
           position: "top-center",
