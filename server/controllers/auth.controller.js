@@ -4,6 +4,7 @@ const { JWT_SECRET } = require("../config")
 const { generateOTP, generateUserName } = require("../utils")
 const { sendSMS } = require("../utils/sms")
 
+
 exports.login = async (req, res) => {
   try {
     const { phoneNumber } = req.body
@@ -23,15 +24,33 @@ exports.login = async (req, res) => {
         { expiresIn: "7d" }
       )
 
-    
-
-      return res.status(200).json({ user: userFound, otp, accessToken }) 
-    } else res.status(409).json({ message: "phone number not registered" })
+      return res.status(200).json({ user: userFound, otp, accessToken })
+    }
+    else res.status(409).json({ message: "phone number not registered" })
   } catch (e) {
     console.log("@login", e)
     return res.status(422).json({ error: e })
   }
 }
+
+
+exports.verifyOTP = async (req, res) => {
+  const { code } = req.query
+  const { userId } = req.user
+  try {
+
+  }
+  catch (err) {
+
+  }
+  if (parseInt(req.app.locals.OTP) === parseInt(code)) {
+    req.app.locals.OTP = null
+
+    return res.status(201).json({ msg: 'Verified Successfully' })
+  }
+  return res.status(400).json({ error: 'Invalid OTP' })
+}
+
 
 exports.signup = async (req, res) => {
   try {
