@@ -1,3 +1,4 @@
+"use client";
 import { redirect, usePathname } from "next/navigation";
 import React, { Fragment, createContext, useEffect, useState } from "react";
 
