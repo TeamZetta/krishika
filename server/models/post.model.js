@@ -22,8 +22,6 @@ const postSchema = new mongoose.Schema({
         timestamps: true,
         toJSON: {
             transform(doc, ret) {
-                delete ret.createdAt
-                delete ret.updatedAt
                 delete ret.__v
             }
         }
