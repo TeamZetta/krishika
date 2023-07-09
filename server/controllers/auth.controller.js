@@ -15,6 +15,7 @@ exports.login = async (req, res) => {
       await sendSMS(phoneNumber, otp)
 
       req.app.locals.OTP = otp
+      console.log(otp)
 
       /* Create JWT token */
       const accessToken = jwt.sign(
@@ -22,7 +23,7 @@ exports.login = async (req, res) => {
           userId: userFound._id
         },
         JWT_SECRET,
-        { expiresIn: "1d" }
+        { expiresIn: "30d" }
       )
 
       return res.status(200).json(accessToken)
@@ -88,5 +89,25 @@ exports.signup = async (req, res) => {
     }
   } catch (e) {
     return res.status(422).json({ error: e })
+  }
+}
+
+
+
+exports.getProfile = async (req, res) => {
+  const { userId } = req.query
+
+  try {
+    const user = await User.findById(userId)
+
+    if (!user) {
+      return res.status(409).json({ message: 'User not Found' })
+    }
+    else {
+      return res.status(200).json(user)
+    }
+  }
+  catch (err) {
+    return res.status(500).json(err)
   }
 }
