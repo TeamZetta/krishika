@@ -1,5 +1,5 @@
 import { defaultLocale } from "../../middleware";
-import "../styles/globals.css";
+import "./globals.css";
 import ContextProvider from "@/context/ContextProvider";
 
 export const metadata = {
