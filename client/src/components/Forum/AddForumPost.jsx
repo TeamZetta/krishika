@@ -32,7 +32,7 @@ export default function AddForumPost({ onchange }) {
           onChange={(e) => setPostContent(e.target.value)}
         ></textarea>
         <Button
-          className="bg-theme-blue text-white"
+          className="bg-theme-blue text-white z-0"
           disabled={isPostDisabled}
           onClick={handlePostClick}
         >

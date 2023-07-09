@@ -5,7 +5,7 @@ import { dictionary } from "../../../content";
 
 export default function BottomNav({ index, onIndexChange, params }) {
   return (
-    <div className="flex transition-colors justify-around items-center  fixed bottom-0 left-0 right-0 bg-white shadow-sm p-4 px-0">
+    <div className="flex z-10 transition-colors justify-around items-center  fixed bottom-0 left-0 right-0 bg-white shadow-sm p-4 px-0">
       <button
         className="flex flex-col justify-center items-center"
         style={{
