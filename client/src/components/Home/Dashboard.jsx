@@ -10,23 +10,6 @@ import { AppContext } from "@/context/ContextProvider";
 const Dashboard = memo(({ details }) => {
   const { user, district } = useContext(AppContext);
 
-  const fetchData = async () => {
-    const data = await getNearestMandi(district || "");
-    return data.data;
-  };
-
-  const { data } = useSWR("nearestMandi", fetchData, {
-    revalidateOnFocus: false,
-  });
-
-  if (!data) {
-    return (
-      <div className="w-screen h-screen flex justify-center items-center">
-        <ClipLoader />
-      </div>
-    );
-  }
-
   return (
     <div className="pt-[7vh]">
       <Image
