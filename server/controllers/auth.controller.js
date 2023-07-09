@@ -14,21 +14,22 @@ exports.login = async (req, res) => {
       const otp = generateOTP(4)
       await sendSMS(phoneNumber, otp)
 
+      req.app.locals.OTP = otp
+
       /* Create JWT token */
       const accessToken = jwt.sign(
         {
-          userId: userFound._id,
-          userName: userFound.userName,
+          userId: userFound._id
         },
         JWT_SECRET,
-        { expiresIn: "7d" }
+        { expiresIn: "1d" }
       )
 
-      return res.status(200).json({ user: userFound, otp, accessToken })
+      return res.status(200).json(accessToken)
     }
-    else res.status(409).json({ message: "phone number not registered" })
-  } catch (e) {
-    console.log("@login", e)
+    else return res.status(409).json({ message: "Phone number not registered" })
+  }
+  catch (e) {
     return res.status(422).json({ error: e })
   }
 }
@@ -37,18 +38,22 @@ exports.login = async (req, res) => {
 exports.verifyOTP = async (req, res) => {
   const { code } = req.query
   const { userId } = req.user
+  console.log(req.app.locals.OTP)
+  
   try {
+    if (parseInt(req.app.locals.OTP) === parseInt(code)) {
+      req.app.locals.OTP = null
+      const user = await User.findById(userId)
 
+      return res.status(200).json(user)
+    }
+    else {
+      return res.status(400).json({ error: 'Invalid OTP' })
+    }
   }
   catch (err) {
-
+    return res.status(500).json(err)
   }
-  if (parseInt(req.app.locals.OTP) === parseInt(code)) {
-    req.app.locals.OTP = null
-
-    return res.status(201).json({ msg: 'Verified Successfully' })
-  }
-  return res.status(400).json({ error: 'Invalid OTP' })
 }
 
 
