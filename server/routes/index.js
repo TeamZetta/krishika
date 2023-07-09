@@ -6,6 +6,8 @@ const { verifyToken, localVariables } = require('../middlewares/auth')
 const AuthController = require('../controllers/auth.controller')
 const BazarController = require('../controllers/bazar.controller')
 const PostController = require('../controllers/post.controller')
+const ChatController = require('../controllers/chat.controller')
+const MessageController = require('../controllers/message.controller')
 
 // Test route
 router.get('/api/v1', (req, res) => {
@@ -34,7 +36,17 @@ router.route('/api/v1/comment').post(verifyToken, PostController.createComment)
 
 
 // Chat routes
+router.route('/api/v1/chat').get(verifyToken, ChatController.fetchChats)
+router.route('/api/v1/chat').post(verifyToken, ChatController.accessChat)
+router.route('/api/v1/chat/group').post(verifyToken, ChatController.createGroupChat)
+router.route('/api/v1/chat/rename').put(verifyToken, ChatController.renameGroup)
+router.route('/api/v1/chat/groupadd').put(verifyToken, ChatController.addToGroup)
+router.route('/api/v1/chat/groupremove').put(verifyToken, ChatController.removeFromGroup)
 
+
+// Message routes
+router.route('/api/v1/message/:chatId').get(verifyToken, MessageController.allMessages)
+router.route('/api/v1/message').post(verifyToken, MessageController.sendMessage)
 
 
 module.exports = router
