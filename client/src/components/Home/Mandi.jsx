@@ -58,7 +58,7 @@ export default function Mandi({ params }) {
               <ChevronDown />
             </button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-[92vw] max-h-[30vh] overflow-scroll">
+          <DropdownMenuContent className="w-[92vw] max-h-[40vh] overflow-scroll">
             <DropdownMenuLabel>
               {dictionary[params]?.searchDistrict}
             </DropdownMenuLabel>
@@ -66,7 +66,7 @@ export default function Mandi({ params }) {
             <DropdownMenuGroup>
               {districts.map((ele, idx) => (
                 <DropdownMenuItem
-                  className="bg-light-background m-1 rounded-md p-2"
+                  className="bg-light-background m-1 my-2 rounded-md p-3"
                   onClick={() => {
                     setSelectedDistrict(ele);
                     fetchData(ele);
