@@ -1,4 +1,4 @@
-const Forum = require("../models/forum.model")
+const Post = require("../models/post.model")
 const Comment = require("../models/comment.model")
 
 
@@ -7,14 +7,16 @@ exports.createThread = async (req, res) => {
     if (!thread || thread === '') return res.status(400).json({ message: "Provide a thread" })
 
     const { userId } = req.user
+    const { status } = req.params
 
     try {
-        const newThread = await Forum.create({
+        const newThread = await Post.create({
             thread,
             author: userId,
+            status
         })
 
-        const fullThread = await Forum.findOne({ _id: newThread._id })
+        const fullThread = await Post.findOne({ _id: newThread._id })
             .populate('author', 'fullName role vote')
 
         return res.status(200).json(fullThread)
@@ -29,7 +31,7 @@ exports.getSpecificThread = async (req, res) => {
     const { threadId } = req.params
 
     try {
-        const thread = await Forum.findById(threadId)
+        const thread = await Post.findById(threadId)
             .populate('author', 'fullName role vote')
             .populate({
                 path: 'comments',
@@ -51,8 +53,10 @@ exports.getSpecificThread = async (req, res) => {
 
 /** Have to implement pagination here */
 exports.getAllThreads = async (req, res) => {
+    const { status } = req.params
+
     try {
-        const threads = await Forum.find()
+        const threads = await Post.find({ status })
             .populate('author', 'fullName role vote')
             .populate({
                 path: 'comments',
@@ -81,7 +85,7 @@ exports.createComment = async (req, res) => {
     const { userId } = req.user
 
     try {
-        const threadExists = await Forum.exists({ _id: threadId })
+        const threadExists = await Post.exists({ _id: threadId })
 
         if (!threadExists) {
             return res.status(404).json({ message: 'Thread not found' })
@@ -93,7 +97,7 @@ exports.createComment = async (req, res) => {
                 threadId
             })
 
-            const updatedThread = await Forum.findByIdAndUpdate(threadId, {
+            const updatedThread = await Post.findByIdAndUpdate(threadId, {
                 $push: { comments: newComment._id }
             }, { new: true })
 

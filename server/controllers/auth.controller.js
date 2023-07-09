@@ -39,7 +39,7 @@ exports.verifyOTP = async (req, res) => {
   const { code } = req.query
   const { userId } = req.user
   console.log(req.app.locals.OTP)
-  
+
   try {
     if (parseInt(req.app.locals.OTP) === parseInt(code)) {
       req.app.locals.OTP = null
@@ -59,17 +59,7 @@ exports.verifyOTP = async (req, res) => {
 
 exports.signup = async (req, res) => {
   try {
-    const {
-      phoneNumber,
-      fullName,
-      address,
-      zipCode,
-      district,
-      role,
-      landSize,
-      email,
-      prefLang,
-    } = req.body
+    const { phoneNumber, fullName, address, zipCode, district, role, landSize, email, prefLang } = req.body
 
     const userFound = await User.findOne({ phoneNumber })
 
@@ -86,7 +76,7 @@ exports.signup = async (req, res) => {
         district,
         landSize,
         role,
-        lang: prefLang,
+        lang: prefLang
       })
 
       // OTP generation
@@ -97,7 +87,6 @@ exports.signup = async (req, res) => {
       return res.status(200).json({ user, otp })
     }
   } catch (e) {
-    console.log("@signup", e)
     return res.status(422).json({ error: e })
   }
 }
