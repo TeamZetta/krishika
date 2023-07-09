@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken")
 const User = require("../models/user.model")
 const { JWT_SECRET } = require("../config")
 const { generateOTP, generateUserName } = require("../utils")
-const { sendSMS } = require("../utils/sms")
+const sendSMS = require("../utils/sms")
 
 
 exports.login = async (req, res) => {

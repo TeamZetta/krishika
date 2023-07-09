@@ -28,4 +28,4 @@ if (FAKE_SMS){
   }
 }
 
-module.exports = { sendSMS }
+module.exports = sendSMS
