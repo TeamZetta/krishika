@@ -17,7 +17,7 @@ exports.createThread = async (req, res) => {
         })
 
         const fullThread = await Post.findOne({ _id: newThread._id })
-            .populate('author', 'fullName role vote')
+            .populate('author', 'fullName userName role vote')
 
         return res.status(200).json(fullThread)
     }
@@ -39,7 +39,7 @@ exports.getSpecificThread = async (req, res) => {
                 populate: {
                     path: 'user',
                     model: 'User',
-                    select: 'fullName role vote'
+                    select: 'fullName userName role vote'
                 }
             })
 
@@ -64,7 +64,7 @@ exports.getAllThreads = async (req, res) => {
                 populate: {
                     path: 'user',
                     model: 'User',
-                    select: 'fullName role vote'
+                    select: 'fullName userName role vote'
                 }
             })
 
