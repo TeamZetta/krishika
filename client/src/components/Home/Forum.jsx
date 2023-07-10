@@ -14,7 +14,7 @@ export default function Forum({ params }) {
   const { token } = useContext(AppContext);
   const getPosts = async () => {
     const response = await getForum(token);
-    console.log(response.data);
+    // console.log(response.data);
     setForums(response.data);
   };
 

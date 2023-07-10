@@ -19,7 +19,7 @@ import { AppContext } from "@/context/ContextProvider";
 export default function Mandi({ params }) {
   const { district } = useContext(AppContext);
   const [districts, setDistricts] = useState([]);
-  const [valueDistricts, setValueDistricts] = useState([]);
+  const [valueDistricts, setValueDistricts] = useState({});
   const [selectedDistrict, setSelectedDistrict] = useState(district);
   const [selectedMandi, setSelectedMandi] = useState([]);
   const [selectedMandiFinal, setSelectedMandiFinal] = useState({
@@ -40,14 +40,14 @@ export default function Mandi({ params }) {
     try {
       if (params === "bn") {
         const response = await api.get("/en/bn/allDistricts");
-        const valueRespomse = await api.get("/en/en/allDistricts");
-        setValueDistricts(valueRespomse.data.district);
-        setDistricts(response.data.district);
+        setValueDistricts(response.data);
+        const DISTRICTS = Object.keys(response.data);
+        setDistricts(DISTRICTS)
       } else {
         const response = await api.get("/bn/en/allDistricts");
-        const valueRespomse = await api.get("/en/en/allDistricts");
-        setValueDistricts(valueRespomse.data.district);
-        setDistricts(response.data.district);
+        setValueDistricts(response.data);
+        const DISTRICTS = Object.keys(response.data);
+        setDistricts(DISTRICTS);
       }
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -79,11 +79,12 @@ export default function Mandi({ params }) {
               {districts.map((ele, idx) => (
                 <DropdownMenuItem
                   className={` ${ntb.className} bg-light-background m-1 my-2 rounded-md p-3`}
-                  onClick={() => {
-                    setSelectedDistrict(ele);
-                    fetchData(valueDistricts[idx]);
-                  }}
                   key={idx}
+                  onClick={() => {
+                    setSelectedDistrict(ele)
+                    // console.log(valueDistricts[ele])
+                    fetchData(valueDistricts[ele])
+                  }}
                 >
                   {ele}
                 </DropdownMenuItem>
