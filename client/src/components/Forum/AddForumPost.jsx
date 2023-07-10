@@ -2,8 +2,9 @@ import { AppContext } from "@/context/ContextProvider";
 import React, { useContext, useState } from "react";
 import { Button } from "../ui/button";
 import { createForumThread } from "../../../packages/api-management/createThread";
+import { dictionary } from "../../../content";
 
-export default function AddForumPost({ onchange }) {
+export default function AddForumPost({ onchange, params }) {
   const { user, token } = useContext(AppContext);
   const [postContent, setPostContent] = useState("");
   const isPostDisabled = postContent.trim() === "";
@@ -16,7 +17,7 @@ export default function AddForumPost({ onchange }) {
 
   return (
     <div className="bg-white rounded-md border p-3 border-border-light mt-[2vh]  w-full">
-      <h3 className="font-semibold  text-md">Add your query</h3>
+      <h3 className="font-semibold  text-md">{dictionary[params]?.addquery}</h3>
       <div className="p-2 flex flex-col gap-2">
         <div className="flex flex-col">
           <span className="font-bold text-lg">{user?.fullName}</span>
