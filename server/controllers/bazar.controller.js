@@ -20,22 +20,23 @@ exports.getAllDistricts = async (req, res) => {
   const { from, to } = req.params
   try {
     const allDistricts = await Bazar.find().distinct("district")
+    let modifiedDistricts = {}
 
     if (from === 'bn' && to === 'en') {
-      return res.status(200).json(allDistricts)
+      for (let i = 0; i < allDistricts.length; i++) {
+        modifiedDistricts[allDistricts[i]] = allDistricts[i]
+      }
     }
     else if (from === 'en' && to === 'bn') {
       const query = allDistricts.join(" || ")
       let translated = await translate(query, from, to)
       translated = translated.split(" || ")
 
-      const modifiedDistricts = {}
       for (let i = 0; i < allDistricts.length; i++) {
-        modifiedDistricts[allDistricts[i]] = translated[i]
+        modifiedDistricts[translated[i]] = allDistricts[i]
       }
-
-      return res.status(200).json(modifiedDistricts)
     }
+    return res.status(200).json(modifiedDistricts)
   }
   catch (err) {
     console.log(err)
@@ -49,7 +50,7 @@ exports.searchByDistrict = async (req, res) => {
   district = district.toLowerCase()
   try {
     let bazars = await Bazar.find({ district: new RegExp(`^${district}$`, "i") })
-    
+
     if (bazars.length === 0) return res.status(409).json({ bazars, district, message: "Bazars not found" })
     else {
       let query = ""

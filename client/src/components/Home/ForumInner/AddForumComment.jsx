@@ -17,7 +17,7 @@ export default function AddForumComment({ id, onChange }) {
     try {
       const response = await getForumThread(token, id);
       setData(response.data);
-      console.log(response.data);
+      // console.log(response.data);
     } catch (error) {
       console.error("Error fetching post details:", error);
     } finally {
@@ -75,7 +75,7 @@ export default function AddForumComment({ id, onChange }) {
                 <div className="flex flex-col gap-2 py-2 max-h-[25vh] overflow-scroll">
                   {data.comments.map((ele, idx) => {
                     return (
-                      <div className="flex flex-col p-2 rounded-md border border-border-light">
+                      <div className="flex flex-col p-2 rounded-md border border-border-light" key={idx}>
                         <div className="flex items-center">
                           <h3 className="text-sm font-bold">
                             {ele.user.fullName}
