@@ -12,31 +12,31 @@ const PieChart = ({ data }) => {
         colors={{ scheme: 'category10' }}
         borderWidth={1}
         borderColor={{ from: 'color', modifiers: [['darker', 0.2]] }}
-        // radialLabelsSkipAngle={10}
-        // radialLabelsTextColor="#333333"
-        // radialLabelsLinkColor={{ from: 'color' }}
-        // sliceLabelsSkipAngle={10}
-        // sliceLabelsTextColor="#333333"
-        legends={[
-          {
-            anchor: 'bottom',
-            direction: 'row',
-            translateY: 56,
-            itemWidth: 100,
-            itemHeight: 18,
-            itemTextColor: '#999',
-            symbolSize: 18,
-            symbolShape: 'circle',
-            effects: [
-              {
-                on: 'hover',
-                style: {
-                  itemTextColor: '#000',
-                },
-              },
-            ],
-          },
-        ]}
+        radialLabelsSkipAngle={10}
+        radialLabelsTextColor="#333333"
+        radialLabelsLinkColor={{ from: 'color' }}
+        sliceLabelsSkipAngle={10}
+        sliceLabelsTextColor="#333333"
+        // legends={[
+        //   {
+        //     anchor: 'bottom',
+        //     direction: 'row',
+        //     translateY: 56,
+        //     itemWidth: 100,
+        //     itemHeight: 18,
+        //     itemTextColor: '#999',
+        //     symbolSize: 18,
+        //     symbolShape: 'circle',
+        //     effects: [
+        //       {
+        //         on: 'hover',
+        //         style: {
+        //           itemTextColor: '#000',
+        //         },
+        //       },
+        //     ],
+        //   },
+        // ]}
       />
     </div>
   );
