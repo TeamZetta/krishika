@@ -26,10 +26,13 @@ router.route('/api/v1/allBazars').get(BazarController.getAllBazars)
 router.route('/api/v1/:from/:to/allDistricts').get(BazarController.getAllDistricts)
 router.route('/api/v1/bazars/:from/:to/:district').get(BazarController.searchByDistrict)
 router.route('/api/v1/addBazar').post(verifyToken, BazarController.addBazar)
+router.route('/api/v1/getCrop').get(verifyToken, BazarController.getCrop)
+router.route('/api/v1/setCrop').put(verifyToken, BazarController.setCrop)
 
 
 // Post routes
 router.route('/api/v1/:status/createThread').post(verifyToken, PostController.createThread)
+router.route('/api/v1/:status/deleteThread').delete(verifyToken, PostController.deleteThread)
 router.route('/api/v1/:status/threads').get(verifyToken, PostController.getAllThreads)
 router.route('/api/v1/threads/:threadId').get(verifyToken, PostController.getSpecificThread)
 router.route('/api/v1/comment').post(verifyToken, PostController.createComment)
