@@ -68,11 +68,11 @@ exports.accessChat = async (req, res) => {
 
 exports.createGroupChat = async (req, res) => {
     const { userId } = req.user
-    if (!req.body.users || !req.body.name) {
-        return res.status(400).json({ message: 'Please Fill all the Fields' })
+    if (!req.body.name) {
+        return res.status(400).json({ message: 'Please Give Group Name.' })
     }
 
-    let users = req.body.users
+    let users = []
     users.push(userId)
 
     try {

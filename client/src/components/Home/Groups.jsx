@@ -5,20 +5,23 @@ import { AppContext } from "@/context/ContextProvider";
 import moment from "moment";
 import GroupChart from "./Groups/GroupChart";
 import GroupAdd from "./Groups/GroupAdd";
+import { ChatContext } from "@/context/ChatProvider";
 
 export default function Groups({ params }) {
-  const [chats, setChats] = useState([]);
+  const { chats, setChats, setSelectedChat } = useContext(ChatContext)
   const { token } = useContext(AppContext);
   const [isChatopen, setIsChatOpen] = useState(false);
+
   const getAllChat = async () => {
     const res = await getAllChats(token);
     setChats(res.data);
-    console.log(res.data);
+    // console.log(res.data[0]);
   };
 
   useEffect(() => {
     getAllChat();
   }, []);
+
   return (
     <>
       {isChatopen && (
@@ -26,6 +29,7 @@ export default function Groups({ params }) {
           onChange={() => {
             setIsChatOpen(false);
           }}
+          onClick={setSelectedChat(chats[0]._id)}
         />
       )}
       <div className="p-4  pt-[10vh]">
@@ -56,13 +60,13 @@ export default function Groups({ params }) {
                     <span>{moment(ele.createdAt).format("MMMM DD, YYYY")}</span>
                     |
                     <span>
-                      {moment(ele.latestMessage.updatedAt).format("HH : MM a")}
+                      {moment(ele.latestMessage?.updatedAt).format("HH : MM a")}
                     </span>
                   </span>
                   <span className="flex text-sm pt-2 font-bold justify-between items-center">
-                    <span>{ele.latestMessage.content}</span>
+                    <span>{ele.latestMessage?.content}</span>
                     <span className="text-xs">
-                      {moment(ele.latestMessage.updatedAt).format("HH : MM a")}
+                      {moment(ele.latestMessage?.updatedAt).format("HH : MM a")}
                     </span>
                   </span>
                 </div>
