@@ -41,7 +41,7 @@ export default function Mandi({ params }) {
     try {
       if (params === "bn") {
         const response = await api.get("/en/bn/allDistricts");
-        w(response.data);
+        setValueDistricts(response.data);
         const DISTRICTS = Object.keys(response.data);
         setDistricts(DISTRICTS);
       } else {
