@@ -15,6 +15,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { ChevronDown } from "lucide-react";
 import { AppContext } from "@/context/ContextProvider";
+import Map from "@/components/Map/MapContainer";
+
 
 export default function Mandi({ params }) {
   const { district } = useContext(AppContext);
@@ -40,7 +42,7 @@ export default function Mandi({ params }) {
     try {
       if (params === "bn") {
         const response = await api.get("/en/bn/allDistricts");
-        setValueDistricts(response.data);
+        w(response.data);
         const DISTRICTS = Object.keys(response.data);
         setDistricts(DISTRICTS)
       } else {
@@ -55,7 +57,7 @@ export default function Mandi({ params }) {
   };
 
   return (
-    <div className="flex justify-center p-2 pt-[10vh]">
+    <div className="flex flex-col justify-center p-2 pt-[10vh]">
       <div className="flex flex-col p-4 gap-6">
         <div>
           <h3 className="text-3xl font-bold">{dictionary[params]?.mandi}</h3>
@@ -132,6 +134,11 @@ export default function Mandi({ params }) {
             </DropdownMenuGroup>
           </DropdownMenuContent>
         </DropdownMenu>
+      </div>
+      <div className="justify-center p-2 mt-4">
+        <div>
+          <Map address={`${selectedMandiFinal.name === 'Select one'?selectedDistrict:selectedMandiFinal.name}, ${selectedDistrict}`} />
+        </div>
       </div>
     </div>
   );
