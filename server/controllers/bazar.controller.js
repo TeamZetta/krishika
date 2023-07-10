@@ -126,10 +126,10 @@ exports.addBazar = async (req, res) => {
 
 
 exports.getCrop = async (req, res) => {
-  const { userId } = req.user
+  const { userID } = req.body
 
   try {
-    const user = await User.findById(userId)
+    const user = await User.findById(userID)
     const { fullName, crop, ...info } = user._doc
 
     return res.status(200).json({ fullName, crop })
