@@ -1,14 +1,14 @@
 import { ResponsivePie } from '@nivo/pie'
 
-const margin = { top: 40, right: 200, bottom: 30, left: 30 };
+const margin = { top: 40, right: 100, bottom: 30, left: 30 };
 
 const styles = {
     root: {
       fontFamily: "consolas, sans-serif",
       textAlign: "center",
       position: "relative",
-      width: 530,
-      height: 400
+      width: 430,
+      height: 300
     },
     overlay: {
       position: "absolute",
@@ -20,7 +20,7 @@ const styles = {
       flexDirection: "column",
       alignItems: "center",
       justifyContent: "center",
-      fontSize: 70,
+      fontSize: 48,
       color: "#000",
       // background: "#FFFFFF33",
       textAlign: "center",
