@@ -5,24 +5,17 @@ import { getForum } from "../../../packages/api-management/getForum";
 import { AppContext } from "@/context/ContextProvider";
 import moment from "moment/moment";
 import AddForumComment from "./ForumInner/AddForumComment";
-import {
-  Forward,
-  MessageCircle,
-  MoreVertical,
-  Reply,
-  Trash,
-} from "lucide-react";
+import { Forward, MessageCircle, MoreVertical, Trash } from "lucide-react";
 import OthersProfile from "../Profile/OthersProfile";
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
   DropdownMenuGroup,
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
-import { ChevronDown } from "lucide-react";
+import { deleteThread } from "../../../packages/api-management/deleteThread";
+import { toast } from "react-toastify";
 
 export default function Forum({ params }) {
   const [forums, setForums] = useState([]);
@@ -36,6 +29,22 @@ export default function Forum({ params }) {
     setForums(response.data);
   };
 
+  const deletePost = async (threadId) => {
+    const res = await deleteThread(token, threadId);
+    if (res.data.deletedCount === 0) {
+      toast.error(`${dictionary[params]?.postDeleted}`, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
+    getPosts();
+  };
   useEffect(() => {
     getPosts();
   }, []);
@@ -117,7 +126,12 @@ export default function Forum({ params }) {
                           <DropdownMenuItem className=" flex gap-2 items-center">
                             <Forward size={15} /> Share
                           </DropdownMenuItem>
-                          <DropdownMenuItem className="text-red flex gap-2 items-center">
+                          <DropdownMenuItem
+                            className="text-red flex gap-2 items-center"
+                            onClick={() => {
+                              deletePost(ele._id);
+                            }}
+                          >
                             <Trash size={15} /> Delete
                           </DropdownMenuItem>
                         </DropdownMenuGroup>

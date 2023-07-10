@@ -56,6 +56,7 @@ export const dictionary = {
     chatGroups: "Chat Groups",
     addquery: "Add your query",
     forumPosts: "Forum Posts",
+    postDeleted: "you can't delete others post",
   },
   bn: {
     welcome: "স্বাগতম",
@@ -114,5 +115,6 @@ export const dictionary = {
     chatGroups: "চ্যাট গ্রুপ",
     addquery: "আপনার প্রশ্ন যোগ করুন",
     forumPosts: "ফোরাম পোস্ট",
+    postDeleted: "আপনি অন্যদের পোস্ট মুছে ফেলতে পারবেন না",
   },
 };
