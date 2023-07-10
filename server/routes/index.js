@@ -32,7 +32,7 @@ router.route('/api/v1/setCrop').put(verifyToken, BazarController.setCrop)
 
 // Post routes
 router.route('/api/v1/:status/createThread').post(verifyToken, PostController.createThread)
-router.route('/api/v1/:status/deleteThread').delete(verifyToken, PostController.deleteThread)
+router.route('/api/v1/:status/deleteThread/:threadId').delete(verifyToken, PostController.deleteThread)
 router.route('/api/v1/:status/threads').get(verifyToken, PostController.getAllThreads)
 router.route('/api/v1/threads/:threadId').get(verifyToken, PostController.getSpecificThread)
 router.route('/api/v1/comment').post(verifyToken, PostController.createComment)

@@ -29,7 +29,7 @@ exports.createThread = async (req, res) => {
 
 
 exports.deleteThread = async (req, res) => {
-  const { threadId } = req.body
+  const { threadId } = req.params
   const { userId } = req.user
   try {
     const threadToBeDeleted = await Post.deleteOne({

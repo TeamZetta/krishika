@@ -4,6 +4,7 @@ import { getAllChats } from "../../../packages/api-management/getAllChats";
 import { AppContext } from "@/context/ContextProvider";
 import moment from "moment";
 import GroupChart from "./Groups/GroupChart";
+import GroupAdd from "./Groups/GroupAdd";
 
 export default function Groups({ params }) {
   const [chats, setChats] = useState([]);
@@ -72,6 +73,7 @@ export default function Groups({ params }) {
           <div>No chats</div>
         )}
       </div>
+      <GroupAdd />
     </>
   );
 }
