@@ -57,6 +57,14 @@ export const dictionary = {
     addquery: "Add your query",
     forumPosts: "Forum Posts",
     postDeleted: "you can't delete others post",
+    groupStats: "Group Stats",
+    gsText:
+      " Here is the current status of produce of your group, you can edit your share of produce.",
+    prod: "Your current produce in group",
+    update: "update",
+    vst: "Vault Stats",
+    vstd: " Here you can see the contribution and the target reach status for your produce",
+    tgt:"target-quantity"
   },
   bn: {
     welcome: "স্বাগতম",
@@ -116,5 +124,14 @@ export const dictionary = {
     addquery: "আপনার প্রশ্ন যোগ করুন",
     forumPosts: "ফোরাম পোস্ট",
     postDeleted: "আপনি অন্যদের পোস্ট মুছে ফেলতে পারবেন না",
+    groupStats: "গ্রুপ পরিসংখ্যান",
+
+    gsText:
+      "এখানে আপনার গ্রুপের পণ্যের বর্তমান অবস্থা, আপনি আপনার পণ্যের অংশ সম্পাদনা করতে পারেন",
+    prod: "গ্রুপে আপনার বর্তমান পণ্য",
+    update: "হালনাগাদ",
+    vst: "ভল্ট পরিসংখ্যান",
+    vstd: "এখানে আপনি আপনার পণ্যের জন্য অবদান এবং লক্ষ্য পৌঁছানোর স্থিতি দেখতে পারেন",
+    tgt:"লক্ষ্য পরিমাণ"
   },
 };

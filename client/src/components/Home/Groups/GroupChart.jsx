@@ -9,6 +9,7 @@ export default function GroupChart({ onChange }) {
 
   return (
     <>
+
       <div className="fixed flex flex-col items-start justify-start inset-0 p-2 py-4 bg-light-background z-20">
         <div className="w-full ">
           <div className="bg-theme-green py-4 text-white border flex items-center gap-4  rounded-md  m-2 my-0 p-2">
@@ -23,6 +24,7 @@ export default function GroupChart({ onChange }) {
             <span>{chats[0].chatName}</span>
           </div>
         </div>
+
         <div className="p-[2vh]"><ChatBody /></div>
       </div>
     </>
