@@ -21,6 +21,7 @@ module.exports = {
       white: "white",
       "border-light": "#00000029",
       "black-light": "#00000090",
+      red: "red",
     },
     container: {
       center: true,

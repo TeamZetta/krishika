@@ -2,7 +2,7 @@
 import Mandi from "@/components/Home/Mandi";
 import BottomNav from "@/components/Home/BottomNav";
 import Dashboard from "@/components/Home/Dashboard";
-import Feed from "@/components/Home/Feed";
+import Groups from "@/components/Home/Groups";
 import Forum from "@/components/Home/Forum";
 import Navbar from "@/components/Home/Navbar";
 
@@ -21,7 +21,7 @@ export default function page({ params }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const components = [
     <Dashboard details={params.lang} />,
-    <Feed />,
+    <Groups params={params.lang} />,
     <Forum params={params.lang} />,
     <Mandi params={params.lang} />,
   ];

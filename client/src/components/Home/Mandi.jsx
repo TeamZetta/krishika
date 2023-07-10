@@ -17,7 +17,6 @@ import { ChevronDown } from "lucide-react";
 import { AppContext } from "@/context/ContextProvider";
 import Map from "@/components/Map/MapContainer";
 
-
 export default function Mandi({ params }) {
   const { district } = useContext(AppContext);
   const [districts, setDistricts] = useState([]);
@@ -44,7 +43,7 @@ export default function Mandi({ params }) {
         const response = await api.get("/en/bn/allDistricts");
         w(response.data);
         const DISTRICTS = Object.keys(response.data);
-        setDistricts(DISTRICTS)
+        setDistricts(DISTRICTS);
       } else {
         const response = await api.get("/bn/en/allDistricts");
         setValueDistricts(response.data);
@@ -83,9 +82,9 @@ export default function Mandi({ params }) {
                   className={` ${ntb.className} bg-light-background m-1 my-2 rounded-md p-3`}
                   key={idx}
                   onClick={() => {
-                    setSelectedDistrict(ele)
+                    setSelectedDistrict(ele);
                     // console.log(valueDistricts[ele])
-                    fetchData(valueDistricts[ele])
+                    fetchData(valueDistricts[ele]);
                   }}
                 >
                   {ele}
@@ -137,7 +136,13 @@ export default function Mandi({ params }) {
       </div>
       <div className="justify-center p-2 mt-4">
         <div>
-          <Map address={`${selectedMandiFinal.name === 'Select one'?selectedDistrict:selectedMandiFinal.name}, ${selectedDistrict}`} />
+          <Map
+            address={`${
+              selectedMandiFinal.name === "Select one"
+                ? selectedDistrict
+                : selectedMandiFinal.name
+            }, ${selectedDistrict}`}
+          />
         </div>
       </div>
     </div>

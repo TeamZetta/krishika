@@ -13,7 +13,8 @@ const userSchema = new mongoose.Schema(
     role: { type: String, enum: ["Farmer", "Expert"], default: "Farmer" },
     lang: { type: String, enum: ["en", "bn"] },
     vote: { type: Number, default: 0 },
-    admin: {type: Boolean, default: false}
+    admin: { type: Boolean, default: false },
+    crop: { type: Number, default: 0 }
   },
   {
     timestamps: true,
