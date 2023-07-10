@@ -42,7 +42,7 @@ export default function Mandi({ params }) {
     try {
       if (params === "bn") {
         const response = await api.get("/en/bn/allDistricts");
-        setValueDistricts(response.data);
+        w(response.data);
         const DISTRICTS = Object.keys(response.data);
         setDistricts(DISTRICTS)
       } else {
@@ -137,7 +137,7 @@ export default function Mandi({ params }) {
       </div>
       <div className="justify-center p-2 mt-4">
         <div>
-          <Map address={selectedDistrict}/>
+          <Map address={`${selectedMandiFinal.name === 'Select one'?selectedDistrict:selectedMandiFinal.name}, ${selectedDistrict}`} />
         </div>
       </div>
     </div>
