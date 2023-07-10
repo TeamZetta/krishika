@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getProfile } from "../../../packages/api-management/getProfile";
+import { X } from "lucide-react";
 
 export default function Profile({ token, onchange, userId }) {
   const [data, setData] = useState({});
@@ -14,7 +15,16 @@ export default function Profile({ token, onchange, userId }) {
   }, []);
   return (
     <div className="fixed p-4 inset-0 bg-white z-10 pt-20 flex flex-col gap-3">
-      <h3 className="text-2xl font-bold"> Profile</h3>
+      <div className="flex justify-between items-center">
+        <h3 className="text-2xl font-bold"> Profile</h3>
+        <button
+          onClick={() => {
+            onchange();
+          }}
+        >
+          <X />
+        </button>
+      </div>
       <div>
         <span className="text-sm">Name</span>
         <h3 className="font-bold text-lg text-theme-blue">{data.fullName}</h3>
