@@ -51,12 +51,12 @@ export default function AddForumComment({ id, onChange, onProfile }) {
           <div className="flex flex-col">
             <div className="flex items-center justify-between">
               <div>
-                <h2 className="font-bold text-xl">{data.author.fullName}</h2>
+                <h2 className="font-bold text-xl">{data.author?.fullName}</h2>
                 <div className="flex gap-2 items-center">
                   <span className="text-[15px] font-semibold">
-                    @{data.author.userName}
+                    @{data.author?.userName}
                   </span>
-                  | <span className="text-xs">{data.author.role}</span>
+                  | <span className="text-xs">{data.author?.role}</span>
                 </div>
               </div>
               <span className="text-xs font-semibold text-theme-blue">
@@ -69,7 +69,7 @@ export default function AddForumComment({ id, onChange, onProfile }) {
             {data.comments.length > 0 ? (
               <div className="py-2">
                 <span className=" text-sm">
-                  comments ({data.comments.length})
+                  comments ({data.comments?.length})
                 </span>
                 <div className="flex flex-col gap-2 py-2 max-h-[25vh] overflow-scroll">
                   {data.comments.map((ele, idx) => {
@@ -81,13 +81,13 @@ export default function AddForumComment({ id, onChange, onProfile }) {
                         <div
                           className="flex items-center"
                           onClick={() => {
-                            onProfile(ele.user._id);
+                            onProfile(ele.user?._id);
                           }}
                         >
                           <h3 className="text-sm font-bold">
                             {ele.user.fullName}
                           </h3>
-                          |<span className="text-xs">@{ele.user.userName}</span>
+                          |<span className="text-xs">@{ele.user?.userName}</span>
                         </div>
                         <span className="text-xs">
                           {" "}

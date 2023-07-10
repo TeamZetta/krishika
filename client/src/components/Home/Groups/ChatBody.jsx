@@ -5,7 +5,7 @@ import io from 'socket.io-client'
 import { AppContext } from '@/context/ContextProvider'
 import { ChevronRight } from 'lucide-react'
 
-const ENDPOINT = process.env.NEXT_PUBLIC_BASEURL;
+const ENDPOINT = process.env.NEXT_PUBLIC_SOCKET_URL
 var socket, selectedChatCompare
 
 const ChatBody = () => {
