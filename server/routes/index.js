@@ -26,6 +26,8 @@ router.route('/api/v1/allBazars').get(BazarController.getAllBazars)
 router.route('/api/v1/:from/:to/allDistricts').get(BazarController.getAllDistricts)
 router.route('/api/v1/bazars/:from/:to/:district').get(BazarController.searchByDistrict)
 router.route('/api/v1/addBazar').post(verifyToken, BazarController.addBazar)
+router.route('/api/v1/getCrop').get(verifyToken, BazarController.getCrop)
+router.route('/api/v1/setCrop').put(verifyToken, BazarController.setCrop)
 
 
 // Post routes
