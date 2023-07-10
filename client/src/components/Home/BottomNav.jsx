@@ -1,6 +1,12 @@
 "use client";
 import React from "react";
-import { HomeIcon, LucideFormInput, Newspaper, Store } from "lucide-react";
+import {
+  HomeIcon,
+  LucideFormInput,
+  MessageCircle,
+  Newspaper,
+  Store,
+} from "lucide-react";
 import { dictionary } from "../../../content";
 
 export default function BottomNav({ index, onIndexChange, params }) {
@@ -27,7 +33,7 @@ export default function BottomNav({ index, onIndexChange, params }) {
           onIndexChange(1);
         }}
       >
-        <Newspaper />
+        <MessageCircle />
         <span>{dictionary[params]?.feed}</span>
       </button>
       <button

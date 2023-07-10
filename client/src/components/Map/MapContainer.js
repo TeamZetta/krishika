@@ -31,7 +31,7 @@ mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN;
 //         `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(
 //           address
 //         )}.json?access_token=${mapboxgl.accessToken}`
-//       )        
+//       )
 //         .then((response) => {
 //           console.log('r',response.data)
 //           if (!response.data.features || response.data.features.length === 0) {
@@ -78,38 +78,40 @@ const MapContainer = ({ address }) => {
   const [lat, setLat] = useState(22.5726);
   const [zoom, setZoom] = useState(9);
 
- 
   useEffect(() => {
-    console.log('map', address);
-    
+    console.log("map", address);
+
     // if (map.current) return; // initialize map only once
-    
+
     // Geocode address to get longitude and latitude
-    axios.get(
-      `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(
-        address
+    axios
+      .get(
+        `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(
+          address
         )}.json?access_token=${mapboxgl.accessToken}`
-        )        
-        .then((response) => {
-          const [currLng, currLat] = response.data.features[0].center;
-          
-          console.log('ad', address, currLng, currLat)
+      )
+      .then((response) => {
+        const [currLng, currLat] = response.data.features[0].center;
+
+        console.log("ad", address, currLng, currLat);
         if (map.current) {
           // If map already exists, update the center and zoom
           map.current.setCenter([currLng, currLat]);
-          map.current.setZoom(zoom+1);
+          map.current.setZoom(zoom + 1);
         } else {
           // If map doesn't exist, create a new one
           map.current = new mapboxgl.Map({
             container: mapContainer.current,
-            style: 'mapbox://styles/mapbox/streets-v12',
+            style: "mapbox://styles/mapbox/streets-v12",
             center: [lng, lat],
-            zoom: zoom
+            zoom: zoom,
           });
         }
 
         // Add marker for the address
-        const marker = new mapboxgl.Marker().setLngLat([currLng, currLat]).addTo(map.current);
+        const marker = new mapboxgl.Marker()
+          .setLngLat([currLng, currLat])
+          .addTo(map.current);
 
         // Update the state with the geocoded coordinates
         setLng(currLng);
@@ -120,7 +122,7 @@ const MapContainer = ({ address }) => {
 
   useEffect(() => {
     if (!map.current) return; // wait for map to initialize
-    map.current.on('move', () => {
+    map.current.on("move", () => {
       setLng(map.current.getCenter().lng.toFixed(4));
       setLat(map.current.getCenter().lat.toFixed(4));
       setZoom(map.current.getZoom().toFixed(2));
@@ -128,7 +130,7 @@ const MapContainer = ({ address }) => {
   });
 
   return (
-    <div>
+    <div className="max-w-full max-h-[70vh] overflow-hidden">
       <div className="title text-center mb-4">
         {/* Longitude: {lng} | Latitude: {lat} | Zoom: {zoom} */}
         Find Your Nearest <b>Mandi</b>
