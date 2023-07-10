@@ -55,6 +55,10 @@ exports.searchByDistrict = async (req, res) => {
       return res
         .status(409)
         .json({ bazars, district, message: "Bazars not found" })
+    if (from === "en" && to === "en") {
+      return res.status(200).json({ bazars, district })
+      
+    }
     else {
       if (from === "bn" && to === "en") {
       } else {

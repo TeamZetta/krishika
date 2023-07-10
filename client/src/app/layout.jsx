@@ -1,3 +1,4 @@
+import ChatProvider from "@/context/ChatProvider";
 import { defaultLocale } from "../../middleware";
 import "./globals.css";
 import ContextProvider from "@/context/ContextProvider";
@@ -12,7 +13,11 @@ export default function RootLayout({ params, children }) {
   return (
     <html lang={params.lang ?? defaultLocale}>
       <body className="bg-light-background flex items-center justify-center ">
-        <ContextProvider>{children}</ContextProvider>
+        <ContextProvider>
+          <ChatProvider>
+            {children}
+          </ChatProvider>
+        </ContextProvider>
       </body>
     </html>
   );
