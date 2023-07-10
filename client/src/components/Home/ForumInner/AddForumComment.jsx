@@ -7,7 +7,7 @@ import moment from "moment";
 import { Button } from "@/components/ui/button";
 import { forumComment } from "../../../../packages/api-management/formComment";
 
-export default function AddForumComment({ id, onChange }) {
+export default function AddForumComment({ id, onChange, onProfile }) {
   const { token } = useContext(AppContext);
   const [data, setData] = useState({ name: "" });
   const [isLoading, setIsLoading] = useState(true);
@@ -75,8 +75,16 @@ export default function AddForumComment({ id, onChange }) {
                 <div className="flex flex-col gap-2 py-2 max-h-[25vh] overflow-scroll">
                   {data.comments.map((ele, idx) => {
                     return (
-                      <div className="flex flex-col p-2 rounded-md border border-border-light" key={idx}>
-                        <div className="flex items-center">
+                      <div
+                        className="flex flex-col p-2 rounded-md border border-border-light"
+                        key={idx}
+                      >
+                        <div
+                          className="flex items-center"
+                          onClick={() => {
+                            onProfile(ele.user._id);
+                          }}
+                        >
                           <h3 className="text-sm font-bold">
                             {ele.user.fullName}
                           </h3>
