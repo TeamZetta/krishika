@@ -5,7 +5,7 @@ const User = require('../models/user.model')
 exports.fetchChats = async (req, res) => {
     try {
         Chat.find({ users: { $elemMatch: { $eq: req.user.userId } } })
-            .populate('users', 'fullName address zipCode district')
+            .populate('users', 'fullName address zipCode district crop')
             .populate('groupAdmin', 'fullName address zipCode district')
             .populate('latestMessage')
             .sort({ updatedAt: -1 })

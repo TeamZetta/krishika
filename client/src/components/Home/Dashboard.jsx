@@ -1,4 +1,4 @@
-import React, { memo, useContext } from "react";
+import React, { memo, useContext, useEffect, useState } from "react";
 import { dictionary } from "../../../content";
 import Image from "next/image";
 import RenderNearest from "./HomeInner/RenderNearest";
@@ -8,59 +8,60 @@ import { ClipLoader } from "react-spinners";
 import { AppContext } from "@/context/ContextProvider";
 import PieChart from "../Charts/PieChart";
 import VaultChart from "../Charts/VaultChart";
+import { getVaultData } from "../../../packages/api-management/getVaultData";
 
-const data = [
-  {
-    id: "Required",
-    label: "sass",
-    value: 99,
-    color: "hsl(87, 70%, 50%)",
-  },
-  {
-    id: "python",
-    label: "python",
-    value: 490,
-    color: "hsl(173, 70%, 50%)",
-  },
-  {
-    id: "erlang",
-    label: "erlang",
-    value: 416,
-    color: "hsl(320, 70%, 50%)",
-  },
-  {
-    id: "elixir",
-    label: "elixir",
-    value: 56,
-    color: "hsl(333, 70%, 50%)",
-  },
-  {
-    id: "c",
-    label: "c",
-    value: 192,
-    color: "hsl(91, 70%, 50%)",
-  },
-];
-
-const vaultData = [
-  {
-    id: "Required",
-    value: 99,
-    color: "hsl(87, 70%, 50%)",
-  },
-  {
-    id: "completed",
-    value: 490,
-    color: "hsl(173, 70%, 50%)",
-  }
-];
-
+const rand = (min, max) => {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+};
 
 const Dashboard = memo(({ details }) => {
-  const { user, district } = useContext(AppContext);
+  const { user, token, district } = useContext(AppContext);
+  const [userData, setUserData] = useState();
+  const [vaultData, setVaultData] = useState(0);
+  const target = 20; // 20 qui
+
+  const getData = async () => {
+    const res = await getVaultData(token);
+
+    const data = res.data[0];
+    // console.log(data);
+
+    let users = [],
+      count = 0;
+    for (let i = 0; i < data.users.length; i++) {
+      count += data.users[i].crop;
+      users.push({
+        id: data.users[i].fullName,
+        label: data.users[i].fullName,
+        value: data.users[i].crop,
+        color: `hsl(${rand(80, 150)}, 70%, 50%)`,
+      });
+    }
+    // console.log(users);
+    setUserData(users);
+
+    const vaultData = [
+      {
+        id: "Required",
+        value: target - count,
+        color: "hsl(87, 70%, 50%)",
+      },
+      {
+        id: "Completed",
+        value: count,
+        color: "hsl(173, 70%, 50%)",
+      },
+    ];
+
+    setVaultData(vaultData);
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col pb-[15vh]">
       <div className="pt-[7vh]">
         <Image
           src="/Assets/dash.jpg"
@@ -81,17 +82,28 @@ const Dashboard = memo(({ details }) => {
         </div>
       </div>
 
-      <div className="pr-2 mb-4">
-        <h3 className="text-[1.5rem] pl-4 text-center">
-          Group Stats
-        </h3>
-        <PieChart data={data} />
+      <div className="overflow-hidden p-4">
+        <h3 className="text-[1.5rem] pl-4 text-center">Group Stats</h3>
+        {userData ? (
+          <PieChart data={userData} />
+        ) : (
+          <div className="w-screen h-[30vh] flex items-center justify-center">
+            <ClipLoader />
+          </div>
+        )}
       </div>
-      <div className="pr-2 mb-4">
-        <h3 className="text-[1.5rem] pl-4 text-center">
-          Vault Stats
-        </h3>
-        <VaultChart data={vaultData} centerText={`${vaultData[0].value}%`}/>
+      <div className="overflow-hidden p-4">
+        <h3 className="text-[1.5rem] pl-4 text-center">Vault Stats</h3>
+        {vaultData ? (
+          <VaultChart
+            data={vaultData}
+            centerText={`${Math.round((vaultData[1].value / target) * 100)}%`}
+          />
+        ) : (
+          <div className="w-screen h-[10vh] flex items-center justify-center">
+            <ClipLoader />
+          </div>
+        )}
       </div>
     </div>
   );
