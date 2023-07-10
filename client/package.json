@@ -11,6 +11,7 @@
   "dependencies": {
     "@formatjs/intl-localematcher": "^0.4.0",
     "@googlemaps/js-api-loader": "^1.16.2",
+    "@nivo/pie": "^0.83.0",
     "@onflow/fcl": "^1.4.1",
     "@radix-ui/react-accordion": "^1.1.2",
     "@radix-ui/react-dropdown-menu": "^2.0.5",
@@ -22,9 +23,9 @@
     "eslint": "8.44.0",
     "eslint-config-next": "13.4.9",
     "lucide-react": "^0.259.0",
-    "moment": "^2.29.4",
     "mapbox-gl": "^2.15.0",
     "maplibre-gl": "^3.1.0",
+    "moment": "^2.29.4",
     "negotiator": "^0.6.3",
     "next": "13.4.9",
     "postcss": "8.4.25",

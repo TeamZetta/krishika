@@ -1,6 +1,6 @@
 export const dictionary = {
   en: {
-    welcome: "Welcome to",
+    welcome: "Welcome",
     continue: "Continue",
     language: "Chose your desired language",
     choose: "Choose",
