@@ -1,6 +1,6 @@
 export const dictionary = {
   en: {
-    welcome: "Welcome to",
+    welcome: "Welcome",
     continue: "Continue",
     language: "Chose your desired language",
     choose: "Choose",
@@ -54,6 +54,8 @@ export const dictionary = {
     dashboard: "Dashboard",
     searchDistrict: "Search District",
     chatGroups: "Chat Groups",
+    addquery: "Add your query",
+    forumPosts: "Forum Posts",
   },
   bn: {
     welcome: "স্বাগতম",
@@ -100,8 +102,8 @@ export const dictionary = {
     formNotFilled: "দয়া করে সমস্ত ক্ষেত্র পূরণ করুন",
     mobInvalid: "অনুগ্রহ করে একটি বৈধ মোবাইল নম্বর লিখুন",
     wrongOTP: "আপনি একটি ভুল OTP প্রবেশ করেছেন",
-    home: "বাড়ি",
-    feed: "গোষ্ঠী",
+    home: "হোম",
+    feed: "গ্রুপ",
     forum: "ফোরাম",
     mandi: "মন্ডি",
     actions: "মেনু",
@@ -110,5 +112,7 @@ export const dictionary = {
     dashboard: "ড্যাশবোর্ড",
     searchDistrict: "জেলা অনুসন্ধান",
     chatGroups: "চ্যাট গ্রুপ",
+    addquery: "আপনার প্রশ্ন যোগ করুন",
+    forumPosts: "ফোরাম পোস্ট",
   },
 };
