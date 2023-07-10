@@ -21,6 +21,7 @@
     "eslint": "8.44.0",
     "eslint-config-next": "13.4.9",
     "lucide-react": "^0.259.0",
+    "moment": "^2.29.4",
     "mapbox-gl": "^2.15.0",
     "maplibre-gl": "^3.1.0",
     "negotiator": "^0.6.3",

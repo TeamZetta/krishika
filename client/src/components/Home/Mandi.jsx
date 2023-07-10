@@ -57,7 +57,7 @@ export default function Mandi({ params }) {
   };
 
   return (
-    <div className="flex justify-center p-2 pt-[10vh]">
+    <div className="flex flex-col justify-center p-2 pt-[10vh]">
       <div className="flex flex-col p-4 gap-6">
         <div>
           <h3 className="text-3xl font-bold">{dictionary[params]?.mandi}</h3>
@@ -134,8 +134,10 @@ export default function Mandi({ params }) {
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
-      <div>
-        <Map address='Kolkata'/>
+      <div className="justify-center p-2 mt-4">
+        <div>
+          <Map address={selectedDistrict}/>
+        </div>
       </div>
     </div>
   );
