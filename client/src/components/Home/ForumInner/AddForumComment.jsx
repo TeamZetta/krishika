@@ -17,7 +17,6 @@ export default function AddForumComment({ id, onChange, onProfile }) {
     try {
       const response = await getForumThread(token, id);
       setData(response.data);
-      // console.log(response.data);
     } catch (error) {
       console.error("Error fetching post details:", error);
     } finally {
@@ -116,7 +115,8 @@ export default function AddForumComment({ id, onChange, onProfile }) {
               disabled={isCommentDisabled}
               className="bg-theme-blue text-white"
               onClick={async () => {
-                await forumComment(token, commentText, id);
+                const res = await forumComment(token, commentText, id);
+                console.log(res.data);
                 getPostDetails();
                 setCommentText("");
               }}
