@@ -89,16 +89,16 @@ export default function Forum({ params }) {
                       }}
                     >
                       <span className="font-bold text-[20px]">
-                        {ele.author.fullName}
+                        {ele.author?.fullName}
                       </span>
-                      |<span className="text-xs">{ele.author.role}</span>
+                      |<span className="text-xs">{ele.author?.role}</span>
                     </div>
                     <span className="text-xs">
                       {moment(ele.createdAt).format("MMMM DD, YYYY")}
                     </span>
                   </div>
                   <span className="font-semibold text-[12px] text-theme-green">
-                    @{ele.author.userName}
+                    @{ele.author?.userName}
                   </span>
                   <span></span>
                   <span></span>
