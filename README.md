@@ -35,7 +35,7 @@ You can follow these instructions to setup a dev environment:
 ### Primary set up of Krishika
 - Clone the repo and go to the dir
 ```sh
-$ git clone <link>
+$ git clone https://github.com/TeamZetta/krishika.git
 $ cd krishika
 ```
 - Install dependencies
@@ -58,7 +58,7 @@ $ yarn dev
 
 # 📸 Demo
 
-![Krishika-Demo-Video](link)
+[Krishika-Demo-Video](https://youtu.be/eQMdKcuDhys)
 
 # 🗒️ Contributing Guidelines
 
