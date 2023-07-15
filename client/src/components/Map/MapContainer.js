@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
 import mapboxgl from "mapbox-gl";
-import axios from "axios";
+import api from "../../../packages/api-management/common";
 
 mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN;
 
@@ -84,7 +84,7 @@ const MapContainer = ({ address }) => {
     // if (map.current) return; // initialize map only once
 
     // Geocode address to get longitude and latitude
-    axios
+    api
       .get(
         `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(
           address

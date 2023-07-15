@@ -11,21 +11,18 @@ exports.sendMessage = async (req, res) => {
         return res.status(400)
     }
 
-    var newMessage = {
-        sender: req.user._id,
+    let newMessage = {
+        sender: req.user.userId,
         content: content,
         chat: chatId
     }
 
     try {
-        var message = await Message.create(newMessage)
+        let message = await Message.create(newMessage)
 
         message = await message.populate('sender', 'fullName address zipCode district')
         message = await message.populate('chat')
-        message = await User.populate(message, {
-            path: 'chat.users',
-            select: 'fullName address zipCode district'
-        })
+        
 
         await Chat.findByIdAndUpdate(chatId, {
             latestMessage: message
@@ -43,8 +40,8 @@ exports.allMessages = async (req, res) => {
     try {
         const messages = await Message.find({ chat: req.params.chatId })
             .populate('sender', 'fullName address zipCode district')
-            .populate('chat')
 
+        
         res.status(200).json(messages)
     }
     catch (err) {

@@ -4,6 +4,8 @@ import api from '../../../../packages/api-management/common'
 import io from 'socket.io-client'
 import { AppContext } from '@/context/ContextProvider'
 import { ChevronRight } from 'lucide-react'
+import ScrollableChat from './ScrollableChat'
+import { ClipLoader } from 'react-spinners'
 
 const ENDPOINT = process.env.NEXT_PUBLIC_SOCKET_URL
 var socket, selectedChatCompare
@@ -19,6 +21,7 @@ const ChatBody = () => {
     const [isTyping, setIsTyping] = useState(false)
 
     const fetchMessages = async () => {
+        // console.log(selectedChat);
         if (!selectedChat) return
 
         try {
@@ -29,12 +32,13 @@ const ChatBody = () => {
             }
             setLoading(true)
 
-            const { data } = await api.get(`/message/${selectedChat}`, config)
+            const { data } = await api.get(`/message/${selectedChat._id}`, config)
+            // console.log(data);
 
             setMessages(data)
             setLoading(false)
 
-            socket.emit('join chat', selectedChat)
+            socket.emit('join chat', selectedChat._id)
         }
         catch (err) {
             console.log(err)
@@ -55,6 +59,7 @@ const ChatBody = () => {
         selectedChatCompare = selectedChat
     }, [selectedChat])
 
+
     useEffect(() => {
         socket.on('message received', (msg) => {
             if (!selectedChatCompare || selectedChatCompare !== msg.chat._id) {
@@ -70,13 +75,12 @@ const ChatBody = () => {
     })
 
     const sendMessage = async (e) => {
-        if (e.keyCode === 13 && newMessage) {
-            socket.emit('stop typing', selectedChat)
+        if (newMessage.trim()) {
+            socket.emit('stop typing', selectedChat._id)
             try {
                 const config = {
                     headers: {
                         Authorization: `Bearer ${token}`,
-                        'Content-type': 'application/json'
                     }
                 }
 
@@ -121,30 +125,25 @@ const ChatBody = () => {
         }, timerLength)
     }
 
-    console.log(messages)
 
     return (
         <>
-            {selectedChat ? <div>
-                {messages.map((ele, idx) => {
-                    return <div className='p-2 px-3 rounded-md shadow-sm bg-white my-2'>
-                        <span>{ }</span>
-                        <span>{ele.content}</span>
-                    </div>
-                })}
-
-
-            </div> : <div></div>}
+            {loading ? <ClipLoader />
+                : <div className=''>
+                    <ScrollableChat messages={messages} />
+                </div>
+            }
 
             <div className=" p-4 fixed z-20 bottom-0 left-0 right-0 flex gap-4 ">
                 <input
                     onChange={typingHandler}
+                    value={newMessage}
                     type="text"
                     className="w-[80vw] rounded-md shadow-md p-2 focus:outline-none "
                     placeholder="Enter your message"
                 />
-                <button className="bg-theme-blue shadow-md  text-white rounded-full p-3" onClick={sendMessage}>
-                    <ChevronRight />
+                <button className="bg-theme-blue shadow-md  text-white rounded-full p-3">
+                    <ChevronRight onClick={sendMessage} />
                 </button>
             </div>
         </>

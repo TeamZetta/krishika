@@ -46,7 +46,7 @@ const Dashboard = memo(({ details }) => {
 
     let users = [],
       count = 0;
-    for (let i = 0; i < data.users.length; i++) {
+    for (let i = 0; i < data?.users.length; i++) {
       count += data.users[i].crop;
       users.push({
         id: data.users[i].fullName,
@@ -76,7 +76,7 @@ const Dashboard = memo(({ details }) => {
 
   useEffect(() => {
     getData();
-    console.log(userData);
+    // console.log(userData);
   }, []);
 
   return (
